@@ -5,20 +5,33 @@ class Person(name: String, age: Int) {
 }
 
 object Main extends App {
-  val p = new Person("hogeika", 13) with Prefix with Enclosing
+  def prefix = {
+    val p = new Person("hogeika", 13) with Prefix
 
-  // prefix
-  println(p == p.prefix)
-  println(p.prefixTree)
-  println(p.prefixHello)
-  println((new Person("hogeika", 13) with Prefix).prefixTree)
+    println(p == p.prefix)
+    println(p.prefixTree)
+    println(p.prefixHello)
+    println((new Person("hogeika", 13) with Prefix).prefixTree)
+  }
 
-  // enclosing
-  println(p.enclosingPosition)
-  println(p.warning)
-  def method = p.enclosingTrees
-  val (classTree, methodTree, compileUnitTree) = method
-  println(classTree)
-  println(methodTree)
-  println(compileUnitTree)
+  def enclosing = {
+    // enclosingPosition
+    println(Enclosing.enclosingPosition)
+    println(Enclosing.warning)
+
+    // enclosingClass, enclosingMethod, enclosingUnit
+    def method = Enclosing.enclosingTrees
+    val (classTree, methodTree, compileUnitTree) = method
+    println(classTree)
+    println(methodTree)
+    println(compileUnitTree)
+
+    // enclosingImplicits
+    import com.github.hexx.Enclosing._
+    def method2(i: Int)(implicit s: String) = println(s)
+    method2(123)
+  }
+
+  prefix
+  enclosing
 }
