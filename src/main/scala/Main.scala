@@ -32,6 +32,24 @@ object Main extends App {
     method2(123)
   }
 
+  def wTypeTag = {
+    def f[T](t: T) = WTypeTag.wtypetag(t)
+
+    println(WTypeTag.wtypetag(123))
+    println(f(123))
+  }
+
+  def typeFromTree = {
+    def g[T](t: T) = TypeFromTree.typeFromTree(t)
+
+    println(TypeFromTree.typeFromTree(123))
+    println(g(123))
+
+    println(TypeFromTree.intListType)
+  }
+
   prefix
   enclosing
+  wTypeTag
+  typeFromTree
 }
